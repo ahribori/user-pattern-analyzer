@@ -58,7 +58,6 @@ export default class Layout extends Component {
         return (
             <Box colorIndex={config.CONTENT_BACKGROUND_COLOR}
                  full={true}
-                 align='center'
                  pad='medium'>
                 {this._renderMenuButton()}
                 <Article>

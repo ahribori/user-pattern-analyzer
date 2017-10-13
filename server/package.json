@@ -42,8 +42,7 @@
           "transform-async-to-generator"
         ],
         "presets": [
-          "env",
-          "babili"
+          "env"
         ]
       }
     }

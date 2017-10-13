@@ -44,7 +44,7 @@ export default class Sidebar extends Component {
     _renderTitle() {
         return (
             <Title responsive={false}>
-                Title
+                User Pattern Analyzer
             </Title>
         );
     }
@@ -52,11 +52,11 @@ export default class Sidebar extends Component {
     _renderMenu() {
         return (
             <Menu primary={true}>
-                <Link to="/home" onClick={this._onMenuClick}>
-                    <Anchor className='active' tag="span" onClick={()=>{}}>Home</Anchor>
+                <Link to="/clickAnalyze" onClick={this._onMenuClick}>
+                    <Anchor className='active' tag="span" onClick={()=>{}}>Click Analyze</Anchor>
                 </Link>
-                <Link to="/about"  onClick={this._onMenuClick}>
-                    <Anchor tag="span" onClick={()=>{}}>About</Anchor>
+                <Link to="/management"  onClick={this._onMenuClick}>
+                    <Anchor tag="span" onClick={()=>{}}>Management</Anchor>
                 </Link>
             </Menu>
         );

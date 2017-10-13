@@ -40,7 +40,7 @@ const onAborted = (e) => {
 };
 
 const send = (data, success) => {
-    const url = `${SERVER_URL}/api/analytics`;
+    const url = `${SERVER_URL}/api/analytics/${data.type}`;
     const xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     if (data) { // POST
         xhr.open('POST', url);

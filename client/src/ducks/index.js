@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import User from './User';
+import user from './User';
+import clickAnalyze from './ClickAnalyze';
 
 export default combineReducers({
-    User
+    user,
+    clickAnalyze
 });

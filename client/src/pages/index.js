@@ -1,9 +1,9 @@
 import asyncRoute from '../lib/asyncRoute';
 
-const Home = asyncRoute(() => import('./Home'))
-const About = asyncRoute(() => import('./About'))
+const ClickAnalyze = asyncRoute(() => import('./ClickAnalyze'))
+const Management = asyncRoute(() => import('./Management'))
 
 export {
-    Home,
-    About
+    ClickAnalyze,
+    Management
 }
