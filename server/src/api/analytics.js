@@ -12,7 +12,6 @@ router.post('/click', (req, res) => {
         type: 'click',
         body: payload.data
     }, (error, response) => {
-        console.log(error, response)
         res.json('success!');
     });
 
@@ -45,11 +44,17 @@ router.post('/click', (req, res) => {
                     screen: payload.data.screen
                 }
             }).then((created) => {
+                const transactionQueue = selenium.transactionQueue;
+                for (let i = 0 ; i < transactionQueue.length; i++) {
+                    if (transactionQueue[i].transaction.actions[0].url === payload.data.location.href) {
+                        return;
+                    }
+                }
                 selenium.enqueueTransaction({
                     actions: [
                         {
                             type: 'navigate',
-                            url: url
+                            url: payload.data.location.href
                         },
                         {
                             type: 'window_handle_size',
@@ -62,7 +67,15 @@ router.post('/click', (req, res) => {
                         }
 
                     ]
-                }, { max_session: 1 }, 'chrome');
+                }, { max_session: 1 }, 'chrome', (result) => {
+                    if (result.success === false) {
+                        es.delete({
+                            index: 'app',
+                            type: 'screenshot',
+                            id: created._id
+                        });
+                    }
+                });
             });
         }
 

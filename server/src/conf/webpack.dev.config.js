@@ -1,8 +1,6 @@
 require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = {
     entry: [

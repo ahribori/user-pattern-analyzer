@@ -83,13 +83,14 @@ export default class Manager {
      * @param browser
      * @param schedule_id
      */
-    async enqueueTransaction(transaction, agent, browser) {
+    async enqueueTransaction(transaction, agent, browser, callback) {
         if (!agent.max_session) {
             agent.max_session = process.env.MAX_SESSION || 1;
         }
         this.transactionQueue.push({
             transaction,
             browser,
+            callback,
         });
         event.emit('add', transaction, agent);
     }
@@ -121,7 +122,7 @@ export default class Manager {
                     result.error = e;
                     log('error', 'SELENIUM_ERROR', e.message);
                 }
-
+                if (typeof transaction.callback ==='function') transaction.callback(result);
                 this.liveSession--;
                 event.emit('finish', transaction, agent);
 

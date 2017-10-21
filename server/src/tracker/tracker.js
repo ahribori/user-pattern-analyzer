@@ -12,6 +12,7 @@ const onClick = (e) => {
             x: e.x,
             y: e.y,
             location: {
+                href: location.href,
                 origin: location.origin,
                 pathname: location.pathname
             },
