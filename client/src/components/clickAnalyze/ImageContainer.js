@@ -3,19 +3,20 @@ import Spinning from 'grommet/components/icons/Spinning';
 
 class ImageContainer extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
-
     render() {
         const imagePath = this.props.image ? process.env.REACT_APP_SERVER_URL + '/' + this.props.image : null;
         return (
-            <div id="heatmapContainer" style={{
-                backgroundImage: `url(${imagePath})`,
-            }}>
-                <Spinning size="large" id="spinner"/>
+            <div>
+                <div style={{ fontSize: '1.5rem' }}>{imagePath ? imagePath : ''}</div>
+                <div id="heatmapContainer" style={{
+                    border: '1px dashed grey',
+                    backgroundImage: `url(${imagePath})`,
+                    textAlign: 'center',
+                    color: 'grey',
+                }}>
+                    { imagePath ? '' : '어플리케이션, 페이지, 화면 사이즈를 선택하면 결과가 나타날 영역입니다'}
+                    <Spinning size="large" id="spinner" />
+                </div>
             </div>
         )
     }
