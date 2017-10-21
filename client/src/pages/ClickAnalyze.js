@@ -12,9 +12,18 @@ class ClickAnalyze extends React.Component {
         this.state = {
             selectedScreen: null
         };
+        this.onSomethingChanged = this.onSomethingChanged.bind(this);
         this._handleOriginChange = this._handleOriginChange.bind(this);
         this._handlePathnameChange = this._handlePathnameChange.bind(this);
         this._handleScreenChange = this._handleScreenChange.bind(this);
+        this.fetchData = this.fetchData.bind(this);
+    }
+
+    onSomethingChanged() {
+        const heatmap = document.querySelector('canvas');
+        if (heatmap) {
+            heatmap.remove ? heatmap.remove() : heatmap.removeNode(true);
+        }
     }
 
     _handleOriginChange(origin) {
@@ -22,17 +31,26 @@ class ClickAnalyze extends React.Component {
         this.setState({
             selectedScreen: null
         });
-        const heatmap = document.querySelector('canvas');
-        if (heatmap) {
-            heatmap.remove ? heatmap.remove() : heatmap.removeNode(true);
-        }
+        this.onSomethingChanged();
     }
 
     _handlePathnameChange(origin, pathname) {
         this.props.fetchScreen(origin, pathname);
+        this.onSomethingChanged();
+        if (this.state.selectedScreen) {
+            this.fetchData(origin, pathname, this.state.selectedScreen);
+        }
     }
 
     _handleScreenChange(origin, pathname, screen) {
+        this.setState({
+            selectedScreen: screen
+        });
+        this.onSomethingChanged();
+        this.fetchData(origin, pathname, screen);
+    }
+
+    fetchData(origin, pathname, screen) {
         const spinner = document.querySelector('#spinner');
         spinner.style.visibility = 'visible';
         this.props.fetchImage(origin, pathname, screen);
@@ -40,9 +58,6 @@ class ClickAnalyze extends React.Component {
             .then(() => {
                 spinner.style.visibility = 'hidden';
             });
-        this.setState({
-            selectedScreen: screen
-        })
     }
 
     render() {
